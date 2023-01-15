@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.hokhau_model;
 import model.nhankhau_model;
+import model.quanly_model;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,8 +36,8 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 	private JTextField textField_diachi;
 	private JTextField textField_qhchuho;
 	ButtonGroup btn_nam_nu;
-	private JTextField textField_mahokhau;
 	JRadioButton radioBtn_nam, radioBtn_nu;
+	public JComboBox comboBox_mahokhau_nhankhau ;
 	
 	/**
 	 * Launch the application.
@@ -184,12 +185,19 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		btn_themnhankhau_reset.addActionListener(this);
 		contentPane.add(btn_themnhankhau_reset);
 		
-		textField_mahokhau = new JTextField();
-		textField_mahokhau.setToolTipText("");
-		textField_mahokhau.setColumns(10);
-		textField_mahokhau.setBackground(new Color(255, 255, 240));
-		textField_mahokhau.setBounds(163, 245, 215, 42);
-		contentPane.add(textField_mahokhau);
+		comboBox_mahokhau_nhankhau = new JComboBox();
+		comboBox_mahokhau_nhankhau.setBounds(163, 245, 215, 42);
+		contentPane.add(comboBox_mahokhau_nhankhau);
+		comboBox_mahokhau_nhankhau.addItem("");
+		try {
+			for(hokhau_model hokhau: quanly_model.dsHoKhau) {
+			comboBox_mahokhau_nhankhau.addItem(hokhau.maho);
+		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "Vui long nhap ho khau");
+		}
+		
 		this.setTitle("Thêm nhân khẩu");
 		this.setVisible(true);
 	}
@@ -207,7 +215,7 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 			nhankhau.cmnd = textField_cmnd.getText();
 			nhankhau.dantoc = textField_dantoc.getText();
 			nhankhau.hokhau = new hokhau_model();
-			nhankhau.hokhau.maho =textField_mahokhau.getText() ;
+			nhankhau.hokhau.maho = comboBox_mahokhau_nhankhau.getSelectedItem().toString();
 			nhankhau.quanheChuho = textField_qhchuho.getText();
 			nhankhau.diachi = textField_diachi.getText();
 			nhankhau.age_nhankhau =Integer.parseInt(textField_age.getText()) ;
@@ -236,6 +244,6 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		textField_age.setText("");
 		textField_qhchuho.setText("");
 		btn_nam_nu.clearSelection();
-		textField_mahokhau.setText("");
+		comboBox_mahokhau_nhankhau.setSelectedIndex(0);
 	}
 }
