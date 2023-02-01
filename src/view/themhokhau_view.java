@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import database.themhokhau_db;
 import model.hokhau_model;
 import model.quanly_model;
 
@@ -27,10 +28,8 @@ public class themhokhau_view extends JFrame implements ActionListener{
 	private JTextField textField_tenchuho;
 	private JTextField textField_sothanhvien;
 	private JTextField textField_diachi;
-	public hokhau_model hokhau;
-	public quanly_model quanlyAll;
+	public hokhau_model hokhau;	
 	public themhokhau_view() {
-		quanlyAll = new quanly_model();
 		setDefaultCloseOperation(1);
 		setBounds(100, 100, 793, 686);
 		contentPane = new JPanel();
@@ -114,7 +113,8 @@ public class themhokhau_view extends JFrame implements ActionListener{
 				hokhau.maho = textField_maho.getText();
 				hokhau.Sothanhvien =Integer.parseInt(textField_sothanhvien.getText()) ;
 				screen_view.themHoKhau(hokhau);
-				quanly_model.dsHoKhau.add(hokhau);
+				quanly_model.dsMaHo.add(hokhau.maho);
+				themhokhau_db.themhokhau(textField_tenchuho.getText(),textField_diachi.getText() ,textField_maho.getText() , Integer.parseInt(textField_sothanhvien.getText()));
 				JOptionPane.showInternalMessageDialog(null, "Insert success!");
 			} catch (Exception e2) {
 				// TODO: handle exception

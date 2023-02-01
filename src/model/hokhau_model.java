@@ -5,4 +5,7 @@ public class hokhau_model {
 	public String chuho;
 	public int Sothanhvien;
 	public String diachi;
+	public hokhau_model() {
+		
+	}
 }

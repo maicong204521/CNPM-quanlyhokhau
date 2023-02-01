@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import database.themnoptien_db;
 import model.hokhau_model;
 import model.noptien_model;
 import model.quanly_model;
@@ -57,8 +58,8 @@ public class themnoptien_view extends JFrame implements ActionListener{
 			comboBox_mahokhau.setBounds(234, 79, 209, 35);
 			comboBox_mahokhau.addItem("");
 			System.out.print("----------------------------");
-			for(hokhau_model hk : quanly_model.dsHoKhau) {
-			comboBox_mahokhau.addItem(hk.maho);
+			for(String i : quanly_model.dsMaHo) {
+			comboBox_mahokhau.addItem(i);
 			}
 			contentPane.add(comboBox_mahokhau);
 			
@@ -140,6 +141,10 @@ public class themnoptien_view extends JFrame implements ActionListener{
 			noptien.TenKhoanThu = textField_tenKhoanThu.getText();
 			noptien.TenNguoiNop = textField_tenNguoiNop.getText();
 			screen_view.themNopTien(noptien);
+			for(String i : quanly_model.dsMaHo) {
+				comboBox_mahokhau.addItem(i);
+				}
+			themnoptien_db.themnoptien(noptien.TenNguoiNop, noptien.MaHoKhau, noptien.TenKhoanThu, noptien.NgayThu, noptien.SoTien);
 			JOptionPane.showMessageDialog(null, "Insert success!");
 		}
 	}

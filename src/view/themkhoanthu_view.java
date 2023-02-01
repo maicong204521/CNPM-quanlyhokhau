@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import database.themkhoanthu_db;
 import model.khoanthu_model;
 
 import javax.swing.JLabel;
@@ -127,6 +128,7 @@ public class themkhoanthu_view extends JFrame implements ActionListener{
 			khoanthu.tenkhoanthu = textField_tenkhoanthu.getText();
 			khoanthu.makhoanthu = textField_makhoanthu.getText();
 			khoanthu.Sotien =Integer.parseInt(textField_sotiendaunguoi.getText()) ;
+			themkhoanthu_db.themkhoanthu(khoanthu.tenkhoanthu,khoanthu.makhoanthu, khoanthu.loaikhoanthu, khoanthu.Sotien);
 			screen_view.themKhoanThu(khoanthu);
 			JOptionPane.showInternalMessageDialog(null, "insert success!");
 			this.setnull();

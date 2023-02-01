@@ -21,6 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import database.themhokhau_db;
+import database.themkhoanthu_db;
+import database.themnhankhau_db;
+import database.themnoptien_db;
 import model.hokhau_model;
 import model.khoanthu_model;
 import model.nhankhau_model;
@@ -284,10 +288,14 @@ public class screen_view extends JFrame implements ActionListener{
 		lblNewLabel.setBounds(0, 20, 198, 71);
 		lblNewLabel.setForeground(new Color(255, 69, 0));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 35));
-		
+		themhokhau_db.hokhau_start();
+		themkhoanthu_db.khoanthu_start();
+		themnoptien_db.noptien_start();
+		themnhankhau_db.nhankhau_start();
+		panel_thongtin.add(scrollPane_dsNhankhau);
 		this.setTitle("Phần mềm quản lý hộ khẩu, nhân khẩu");		
 		this.setVisible(true);
-		panel_thongtin.add(scrollPane_dsNhankhau);
+		
 	}
 	public void setView() {
 		
@@ -302,6 +310,7 @@ public class screen_view extends JFrame implements ActionListener{
 			}
 			else if(src.equals("Danh Sách Hộ Khẩu")) {
 				panel_thongtin.add(scrollPane_dsHoKhau);
+				
 			}
 			else if(src.equals("Danh Sách Đóng Phí")) {
 				panel_thongtin.add(scrollPane_dsDongphi);

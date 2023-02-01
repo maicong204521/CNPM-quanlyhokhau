@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import database.themnhankhau_db;
 import model.hokhau_model;
 import model.nhankhau_model;
 import model.quanly_model;
@@ -37,7 +38,7 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 	private JTextField textField_qhchuho;
 	ButtonGroup btn_nam_nu;
 	JRadioButton radioBtn_nam, radioBtn_nu;
-	public JComboBox comboBox_mahokhau_nhankhau ;
+	public static JComboBox comboBox_mahokhau_nhankhau ;
 	
 	/**
 	 * Launch the application.
@@ -190,8 +191,9 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		contentPane.add(comboBox_mahokhau_nhankhau);
 		comboBox_mahokhau_nhankhau.addItem("");
 		try {
-			for(hokhau_model hokhau: quanly_model.dsHoKhau) {
-			comboBox_mahokhau_nhankhau.addItem(hokhau.maho);
+			for(String i: quanly_model.dsMaHo) {
+				
+				comboBox_mahokhau_nhankhau.addItem(i);
 		}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -231,6 +233,7 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 			//model_table.addRow(new Object[] {ts.mssv + "",ts.name+"",ts.queQuan.tentinh,ts.ngaysinh,ts.gioitinh,ts.diemmon1 + "",ts.diemmon2 + "",ts.diemmon3+ ""});
 			//model_table.addRow(new Object[] {nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
 			screen_view.themNhanKhau(nhankhau);
+			themnhankhau_db.themnhankhau(nhankhau.cmnd, nhankhau.name_nhankhau, nhankhau.age_nhankhau, nhankhau.gioitinh, nhankhau.sdt, nhankhau.quanheChuho, nhankhau.diachi, nhankhau.dantoc,nhankhau.hokhau.maho);
 			JOptionPane.showInternalMessageDialog(null, "Insert Success");
 			this.setNull();
 		}
