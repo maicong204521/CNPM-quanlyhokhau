@@ -3,6 +3,7 @@ package model;
 public class nhankhau_model {
 	public String cmnd;
 	public String name_nhankhau;
+	public String id_nhankhau;
 	public int age_nhankhau;
 	public String gioitinh;
 	public String sdt;
@@ -11,7 +12,7 @@ public class nhankhau_model {
 	public String diachi;
 	public String dantoc;
 	public nhankhau_model(String cmnd, String name_nhankhau, int age_nhankhau, String gioitinh, String sdt,
-			hokhau_model hokhau, String quanheChuho, String dantoc,String diachi) {
+			hokhau_model hokhau, String quanheChuho, String dantoc,String diachi,String id_nhankhau) {
 		super();
 		this.cmnd = cmnd;
 		this.name_nhankhau = name_nhankhau;
@@ -22,6 +23,7 @@ public class nhankhau_model {
 		this.quanheChuho = quanheChuho;
 		this.dantoc = dantoc;
 		this.diachi = diachi;
+		this.id_nhankhau = id_nhankhau;
 	}
 	public nhankhau_model() {
 		

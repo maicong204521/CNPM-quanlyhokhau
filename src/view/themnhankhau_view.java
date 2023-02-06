@@ -39,6 +39,7 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 	ButtonGroup btn_nam_nu;
 	JRadioButton radioBtn_nam, radioBtn_nu;
 	public static JComboBox comboBox_mahokhau_nhankhau ;
+	private JTextField textField_idnhankhau;
 	
 	/**
 	 * Launch the application.
@@ -93,14 +94,14 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Dân Tộc:");
 		lblNewLabel_1_3.setFont(new Font("Arial", Font.PLAIN, 18));
-		lblNewLabel_1_3.setBounds(458, 245, 128, 26);
+		lblNewLabel_1_3.setBounds(458, 562, 128, 26);
 		contentPane.add(lblNewLabel_1_3);
 		
 		textField_dantoc = new JTextField();
 		textField_dantoc.setToolTipText("");
 		textField_dantoc.setColumns(10);
 		textField_dantoc.setBackground(new Color(255, 255, 240));
-		textField_dantoc.setBounds(580, 240, 215, 42);
+		textField_dantoc.setBounds(580, 546, 215, 42);
 		contentPane.add(textField_dantoc);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Tuổi:");
@@ -153,7 +154,7 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		
 		JLabel lblNewLabel_1_4_2_2 = new JLabel("Giới Tính: ");
 		lblNewLabel_1_4_2_2.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblNewLabel_1_4_2_2.setBounds(209, 560, 128, 26);
+		lblNewLabel_1_4_2_2.setBounds(41, 560, 128, 26);
 		contentPane.add(lblNewLabel_1_4_2_2);
 		
 		btn_nam_nu = new ButtonGroup();
@@ -161,12 +162,12 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		
 		radioBtn_nam = new JRadioButton("Nam");
 		radioBtn_nam.setFont(new Font("Arial", Font.PLAIN, 25));
-		radioBtn_nam.setBounds(373, 563, 103, 21);
+		radioBtn_nam.setBounds(178, 563, 103, 21);
 		contentPane.add(radioBtn_nam);
 		
 		radioBtn_nu = new JRadioButton("Nữ");
 		radioBtn_nu.setFont(new Font("Arial", Font.PLAIN, 25));
-		radioBtn_nu.setBounds(544, 563, 103, 21);
+		radioBtn_nu.setBounds(320, 563, 103, 21);
 		contentPane.add(radioBtn_nu);
 		btn_nam_nu.add(radioBtn_nu);
 		btn_nam_nu.add(radioBtn_nam);
@@ -190,6 +191,18 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 		comboBox_mahokhau_nhankhau.setBounds(163, 245, 215, 42);
 		contentPane.add(comboBox_mahokhau_nhankhau);
 		comboBox_mahokhau_nhankhau.addItem("");
+		
+		JLabel lblNewLabel_1_3_1 = new JLabel("ID nhan khau:");
+		lblNewLabel_1_3_1.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblNewLabel_1_3_1.setBounds(449, 261, 128, 26);
+		contentPane.add(lblNewLabel_1_3_1);
+		
+		textField_idnhankhau = new JTextField();
+		textField_idnhankhau.setToolTipText("");
+		textField_idnhankhau.setColumns(10);
+		textField_idnhankhau.setBackground(new Color(255, 255, 240));
+		textField_idnhankhau.setBounds(580, 246, 215, 42);
+		contentPane.add(textField_idnhankhau);
 		try {
 			for(String i: quanly_model.dsMaHo) {
 				
@@ -222,6 +235,7 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 			nhankhau.diachi = textField_diachi.getText();
 			nhankhau.age_nhankhau =Integer.parseInt(textField_age.getText()) ;
 			nhankhau.sdt = textField_sdt.getText();
+			nhankhau.id_nhankhau = textField_idnhankhau.getText();
 			if(radioBtn_nam.isSelected()) {
 				nhankhau.gioitinh = "Nam";
 			}
@@ -233,7 +247,8 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 			//model_table.addRow(new Object[] {ts.mssv + "",ts.name+"",ts.queQuan.tentinh,ts.ngaysinh,ts.gioitinh,ts.diemmon1 + "",ts.diemmon2 + "",ts.diemmon3+ ""});
 			//model_table.addRow(new Object[] {nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
 			screen_view.themNhanKhau(nhankhau);
-			themnhankhau_db.themnhankhau(nhankhau.cmnd, nhankhau.name_nhankhau, nhankhau.age_nhankhau, nhankhau.gioitinh, nhankhau.sdt, nhankhau.quanheChuho, nhankhau.diachi, nhankhau.dantoc,nhankhau.hokhau.maho);
+			quanly_model.dsIdNhankhau.add(nhankhau.id_nhankhau);
+			themnhankhau_db.themnhankhau(nhankhau.id_nhankhau, nhankhau.cmnd, nhankhau.name_nhankhau, nhankhau.age_nhankhau, nhankhau.gioitinh, nhankhau.sdt, nhankhau.quanheChuho, nhankhau.diachi, nhankhau.dantoc,nhankhau.hokhau.maho);
 			JOptionPane.showInternalMessageDialog(null, "Insert Success");
 			this.setNull();
 		}

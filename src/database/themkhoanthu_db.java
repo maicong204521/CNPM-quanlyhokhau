@@ -46,11 +46,37 @@ public class themkhoanthu_db {
 				khoanthu.loaikhoanthu = rs.getString("loaikhoanthu");
 				khoanthu.Sotien = rs.getInt("Sotien");
 				quanly_model.dsKhoanThu.add(khoanthu);
+				quanly_model.dsMakhoanthu.add(khoanthu.makhoanthu);
 				screen_view.themKhoanThu(khoanthu);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static void update_khoanthu(khoanthu_model khoanthu, String makhoanthu) {
+		try {
+			java.sql.Statement st = connec.createStatement();
+			String sql = "update khoanthu "
+					+ "set tenkhoanthu = "+"'"+khoanthu.tenkhoanthu+"'"+", makhoanthu = "+"'"+ khoanthu.makhoanthu +"'"+", loaikhoanthu = "+"'"+khoanthu.loaikhoanthu+"'"+", Sotien = "+khoanthu.Sotien
+					+" where makhoanthu = "+"'"+makhoanthu+"'";
+			int check = st.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public static void delete_row_khoanthu(String makhoanthu) {
+		try {
+			java.sql.Statement st = connec.createStatement();
+			String sql = "DELETE FROM khoanthu where makhoanthu = '"+makhoanthu +"'";
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

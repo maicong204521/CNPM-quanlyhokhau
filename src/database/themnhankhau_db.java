@@ -14,11 +14,11 @@ import view.screen_view;
 public class themnhankhau_db {
 	public static Connection connec = jdbc.getconConnection();
 	//public static quanly_model quanlyAll;
-	public static void themnhankhau(String cmnd,String name_nhankhau,int age_nhankhau,String gioitinh,String sdt,String quanheChuho, String diachi,String dantoc,String maho) {
+	public static void themnhankhau(String id,String cmnd,String name_nhankhau,int age_nhankhau,String gioitinh,String sdt,String quanheChuho, String diachi,String dantoc,String maho) {
 		try {
 			java.sql.Statement st = connec.createStatement();
-			String sql = "insert into nhankhau (cmnd, ten, tuoi, gioitinh,sdt,quanhechuho,diachi,dantoc,maho)"
-	                + "values('" + cmnd + "','" + name_nhankhau + "','" + age_nhankhau + "','" + gioitinh + "','"+sdt+"','"+quanheChuho+"','"+diachi+"','"+dantoc+"','"+ maho + "')";
+			String sql = "insert into nhankhau (id,Cmnd, ten, tuoi, gioitinh,sdt,quanhechuho,diachi,dantoc,maho)"
+	                + "values('"+ id +"','" + cmnd + "','" + name_nhankhau + "','" + age_nhankhau + "','" + gioitinh + "','"+sdt+"','"+quanheChuho+"','"+diachi+"','"+dantoc+"','"+ maho + "')";
 			//System.out.print("you pass database");
 			int check = st.executeUpdate(sql);
 			if(check>0) {
@@ -39,7 +39,9 @@ public class themnhankhau_db {
 			ResultSet rs= st.executeQuery(sql);
 			nhankhau_model nhankhau = new nhankhau_model();
 			//quanlyAll = new quanly_model();
+			
 			while(rs.next()) {
+				nhankhau.id_nhankhau = rs.getString("id");
 				nhankhau.cmnd = rs.getString("cmnd");
 				nhankhau.name_nhankhau = rs.getString("ten");
 				nhankhau.age_nhankhau = rs.getInt("tuoi");
@@ -51,11 +53,26 @@ public class themnhankhau_db {
 				nhankhau.hokhau = new hokhau_model();
 				nhankhau.hokhau.maho = rs.getString("maho");
 				quanly_model.dsNhankhau.add(nhankhau);
+				quanly_model.dsIdNhankhau.add(nhankhau.id_nhankhau);
 				screen_view.themNhanKhau(nhankhau);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static void update_nhankhau(nhankhau_model nhankhau,String idnhankhau) {
+		try {
+			java.sql.Statement st = connec.createStatement();
+			String sql = "update nhankhau "
+					+ "set id = "+"'"+nhankhau.id_nhankhau+"'"+", Cmnd = "+"'"+ nhankhau.cmnd +"'"+", ten = "+"'"+nhankhau.name_nhankhau+"'"+", tuoi = "+nhankhau.age_nhankhau+", gioitinh = "+"'"+nhankhau.gioitinh+"'"+", sdt = "+"'"+nhankhau.sdt+"'"+", quanhechuho = "+"'"+nhankhau.quanheChuho+"'"+", diachi = "+"'"+nhankhau.diachi+"'"+", dantoc = "+"'"+nhankhau.dantoc+"'"+", maho = "+"'"+nhankhau.hokhau.maho
+					+"'"+" where id = "+"'"+idnhankhau+"'";
+			st.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

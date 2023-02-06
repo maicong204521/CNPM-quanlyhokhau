@@ -21,10 +21,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import database.TimkiemNhankhau_withId;
 import database.themhokhau_db;
 import database.themkhoanthu_db;
 import database.themnhankhau_db;
 import database.themnoptien_db;
+import database.timkiemdongphi;
+import database.timkiemhokhau_withChuho;
+import database.timkiemhokhau_withDiachi;
+import database.timkiemhokhau_withMaho;
+import database.timkiemkhoanthu_withMakhoanthu;
+import database.timkiemkhoanthu_withTenkhoanthu;
+import database.timkiemnhankhau_withCmnd;
+import database.timkiemnhankhau_withHoten;
+import database.timkiemnhankhau_withmaho;
 import model.hokhau_model;
 import model.khoanthu_model;
 import model.nhankhau_model;
@@ -33,6 +43,8 @@ import model.noptien_model;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.JEditorPane;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextField;
 
 public class screen_view extends JFrame implements ActionListener{
 	
@@ -50,6 +62,25 @@ public class screen_view extends JFrame implements ActionListener{
 	public static JTable table_hokhau;
 	public static JTable table_dongphi;
 	public static JTable table_khoanthu;
+	public int key = 1;
+	
+	private JTextField textField_idnhankhau;
+	public JTextField textField_mahokhau;
+	
+	private JTextField textField_hotennhankhau;
+	private JTextField textField_maho;
+	private JTextField textField_cmnd;
+	public JTextField textField_makhoanthu;
+	public JTextField textField_tenkhoanthu;
+	public JTextField textField_mahoNop;
+	public JTextField textField_namekhoanthu;
+	public JTextField textField_tennguoidong;
+	public JTextField textField_diachi;
+	public JTextField textField_hotenchuho;
+	public JPanel panel_timkiem_nhankhau ;
+	public JPanel panel_timkiem_hokhau;
+	public JPanel panel_timkiem_khoanthu;
+	public JPanel panel_timkiem_noptien;
 	public screen_view(int a) {
 		
 	}
@@ -67,20 +98,20 @@ public class screen_view extends JFrame implements ActionListener{
 	
 		JPanel panel_chucnang = new JPanel();
 		panel_chucnang.setBackground(new Color(173, 255, 47));
-		panel_chucnang.setBounds(0, 20, 198, 712);
+		panel_chucnang.setBounds(0, 10, 198, 722);
 		contentPane.add(panel_chucnang);
 		panel_chucnang.setLayout(null);
 		
 		JPanel panel_trangchu = new JPanel();
 		panel_trangchu.setBackground(new Color(0, 255, 0));
-		panel_trangchu.setBounds(0, 0, 198, 71);
+		panel_trangchu.setBounds(0, -12, 198, 83);
 		panel_chucnang.add(panel_trangchu);
 		panel_trangchu.setLayout(null);
 		
 		JLabel label_trangchu = new JLabel("Trang Chủ");
 		label_trangchu.setForeground(new Color(255, 69, 0));
 		label_trangchu.setFont(new Font("Arial", Font.BOLD, 28));
-		label_trangchu.setBounds(27, 10, 139, 51);
+		label_trangchu.setBounds(25, 22, 139, 51);
 		panel_trangchu.add(label_trangchu);
 		
 		JLabel label_nhankhau = new JLabel("1. Nhân Khẩu");
@@ -166,46 +197,297 @@ public class screen_view extends JFrame implements ActionListener{
 		btn_themnoptien.addActionListener(this);
 		panel_chucnang.add(btn_themnoptien);
 		
-		JButton btn_xoanoptien = new JButton("Xóa Nộp Tiền");
-		btn_xoanoptien.setForeground(new Color(0, 0, 128));
-		btn_xoanoptien.setFont(new Font("Arial", Font.PLAIN, 16));
-		btn_xoanoptien.setFocusable(false);
-		btn_xoanoptien.setBackground(Color.WHITE);
-		btn_xoanoptien.setBounds(20, 464, 156, 29);
-		btn_xoanoptien.addActionListener(this);
-		panel_chucnang.add(btn_xoanoptien);
+		JButton btn_suanoptien = new JButton("Sửa tt Nộp Tiền");
+		btn_suanoptien.setForeground(new Color(0, 0, 128));
+		btn_suanoptien.setFont(new Font("Arial", Font.PLAIN, 16));
+		btn_suanoptien.setFocusable(false);
+		btn_suanoptien.setBackground(Color.WHITE);
+		btn_suanoptien.setBounds(20, 464, 156, 29);
+		btn_suanoptien.addActionListener(this);
+		panel_chucnang.add(btn_suanoptien);
 		
-		JPanel panel_timkiem = new JPanel();
-		panel_timkiem.setBounds(208, 569, 951, 163);
-		contentPane.add(panel_timkiem);
-		panel_timkiem.setLayout(null);
+		panel_timkiem_nhankhau = new JPanel();
+		panel_timkiem_nhankhau.setBackground(new Color(204, 255, 204));
+		panel_timkiem_nhankhau.setLayout(null);
+		panel_timkiem_nhankhau.setBounds(208, 543, 969, 189);
+		contentPane.add(panel_timkiem_nhankhau);
+		//panel_timkiem.add(panel_timkiem_nhankhau);
 		
+		JLabel lblNewLabel_1 = new JLabel("Nhập ID Nhân Khẩu: ");
+		lblNewLabel_1.setForeground(new Color(0, 102, 255));
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(36, 29, 222, 29);
+		panel_timkiem_nhankhau.add(lblNewLabel_1);
+		
+		textField_idnhankhau = new JTextField();
+		textField_idnhankhau.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_idnhankhau.setBounds(268, 29, 176, 28);
+		panel_timkiem_nhankhau.add(textField_idnhankhau);
+		textField_idnhankhau.setColumns(10);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Nhập Họ Tên: ");
+		lblNewLabel_1_1.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel_1_1.setBounds(36, 92, 222, 29);
+		lblNewLabel_1_1.setForeground(new Color(0, 102, 255));
+		panel_timkiem_nhankhau.add(lblNewLabel_1_1);
+		
+		textField_hotennhankhau = new JTextField();
+		textField_hotennhankhau.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_hotennhankhau.setColumns(10);
+		textField_hotennhankhau.setBounds(268, 92, 176, 28);
+		panel_timkiem_nhankhau.add(textField_hotennhankhau);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Nhập Mã Hộ Khẩu: ");
+		lblNewLabel_1_2.setForeground(new Color(0, 102, 255));
+		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel_1_2.setBounds(515, 29, 222, 29);
+		panel_timkiem_nhankhau.add(lblNewLabel_1_2);
+		
+		textField_maho = new JTextField();
+		textField_maho.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_maho.setColumns(10);
+		textField_maho.setBounds(747, 29, 176, 28);
+		panel_timkiem_nhankhau.add(textField_maho);
+		
+		textField_cmnd = new JTextField();
+		textField_cmnd.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_cmnd.setColumns(10);
+		textField_cmnd.setBounds(747, 92, 176, 28);
+		panel_timkiem_nhankhau.add(textField_cmnd);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("Nhập Số CMND: ");
+		lblNewLabel_1_2_1.setForeground(new Color(0, 102, 255));
+		lblNewLabel_1_2_1.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel_1_2_1.setBounds(515, 92, 222, 29);
+		panel_timkiem_nhankhau.add(lblNewLabel_1_2_1);
+		
+		JButton btn_timkiemnhankhau = new JButton("Tìm Kiếm Nhân Khẩu");
+		btn_timkiemnhankhau.setBackground(new Color(255, 255, 204));
+		btn_timkiemnhankhau.setForeground(new Color(255, 51, 51));
+		btn_timkiemnhankhau.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_timkiemnhankhau.setBounds(380, 143, 222, 36);
+		btn_timkiemnhankhau.setFocusable(false);
+		btn_timkiemnhankhau.addActionListener(this);
+		panel_timkiem_nhankhau.add(btn_timkiemnhankhau);
+		
+		JButton btn_refresh1 = new JButton("REFRESH");
+		btn_refresh1.setForeground(new Color(255, 51, 51));
+		btn_refresh1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_refresh1.setFocusable(false);
+		btn_refresh1.setBackground(new Color(255, 255, 204));
+		btn_refresh1.setBounds(698, 143, 156, 36);
+		btn_refresh1.addActionListener(this);
+		panel_timkiem_nhankhau.add(btn_refresh1);
+		//contentPane.add(panel_timkiem_nhankhau);
+		
+		//**********************panel tim kiem ho khau ******************************//
+		panel_timkiem_hokhau = new JPanel();
+		panel_timkiem_hokhau.setLayout(null);
+		panel_timkiem_hokhau.setBackground(new Color(204, 255, 204));
+		panel_timkiem_hokhau.setBounds(208, 543, 951, 189);
+		//contentPane.add(panel_timkiem_nhankhau);
+		
+		JLabel label_mahokhau = new JLabel("Nhập Mã Hộ Khẩu: ");
+		label_mahokhau.setForeground(new Color(0, 102, 255));
+		label_mahokhau.setFont(new Font("Arial", Font.BOLD, 20));
+		label_mahokhau.setBounds(36, 29, 222, 29);
+		panel_timkiem_hokhau.add(label_mahokhau);
+		
+		textField_mahokhau = new JTextField();
+		textField_mahokhau.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_mahokhau.setBounds(268, 29, 176, 28);
+		panel_timkiem_hokhau.add(textField_mahokhau);
+		
+		
+		JLabel lblNewLabelxx = new JLabel("Nhập Họ Tên Chủ Hộ: ");
+		lblNewLabelxx.setForeground(new Color(0, 102, 255));
+		lblNewLabelxx.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabelxx.setBounds(36, 92, 222, 29);
+		panel_timkiem_hokhau.add(lblNewLabelxx);
+		
+		textField_hotenchuho = new JTextField();
+		textField_hotenchuho.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_hotenchuho.setColumns(10);
+		textField_hotenchuho.setBounds(268, 92, 176, 28);
+		panel_timkiem_hokhau.add(textField_hotenchuho);
+		
+		/////
+		JLabel label_diachi = new JLabel("Nhập Địa Chỉ: ");
+		label_diachi.setForeground(new Color(0, 102, 255));
+		label_diachi.setFont(new Font("Arial", Font.BOLD, 20));
+		label_diachi.setBounds(515, 29, 222, 29);
+		panel_timkiem_hokhau.add(label_diachi);
+		
+		textField_diachi = new JTextField();
+		textField_diachi.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_diachi.setColumns(10);
+		textField_diachi.setBounds(747, 29, 176, 28);
+		panel_timkiem_hokhau.add(textField_diachi);
+		////
+		
+		JButton btn_timkiemhokhau = new JButton("Tìm Kiếm Hộ Khẩu");
+		btn_timkiemhokhau.setBackground(new Color(255, 255, 204));
+		btn_timkiemhokhau.setForeground(new Color(255, 51, 51));
+		btn_timkiemhokhau.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_timkiemhokhau.setBounds(380, 143, 222, 36);
+		btn_timkiemhokhau.setFocusable(false);
+		btn_timkiemhokhau.addActionListener(this);
+		
+		JButton btn_refresh2 = new JButton("REFRESH");
+		btn_refresh2.setForeground(new Color(255, 51, 51));
+		btn_refresh2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_refresh2.setFocusable(false);
+		btn_refresh2.setBackground(new Color(255, 255, 204));
+		btn_refresh2.setBounds(698, 143, 156, 36);
+		btn_refresh2.addActionListener(this);
+		panel_timkiem_hokhau.add(btn_refresh2);
+		panel_timkiem_hokhau.add(btn_timkiemhokhau);
+		
+		//contentPane.add(panel_timkiem_hokhau);
+		//***************************************************************************//
+		//*********************panel tim kiem khoan thu******************************//
+		panel_timkiem_khoanthu = new JPanel();
+		panel_timkiem_khoanthu.setLayout(null);
+		panel_timkiem_khoanthu.setBackground(new Color(204, 255, 204));
+		panel_timkiem_khoanthu.setBounds(208, 543, 951, 189);
+		//contentPane.add(panel_timkiem_nhankhau);
+		
+		JLabel label_makhoanthu = new JLabel("Nhập Mã Khoản Thu: ");
+		label_makhoanthu.setForeground(new Color(0, 102, 255));
+		label_makhoanthu.setFont(new Font("Arial", Font.BOLD, 20));
+		label_makhoanthu.setBounds(36, 29, 222, 29);
+		panel_timkiem_khoanthu.add(label_makhoanthu);
+		
+		textField_makhoanthu = new JTextField();
+		textField_makhoanthu.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_makhoanthu.setBounds(268, 29, 176, 28);
+		panel_timkiem_khoanthu.add(textField_makhoanthu);
+		
+		
+		JLabel label_tenkhoanthu= new JLabel("Nhập Tên Khoản Thu: ");
+		label_tenkhoanthu.setForeground(new Color(0, 102, 255));
+		label_tenkhoanthu.setFont(new Font("Arial", Font.BOLD, 20));
+		label_tenkhoanthu.setBounds(36, 92, 222, 29);
+		panel_timkiem_khoanthu.add(label_tenkhoanthu);
+		
+		textField_tenkhoanthu = new JTextField();
+		textField_tenkhoanthu.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_tenkhoanthu.setColumns(10);
+		textField_tenkhoanthu.setBounds(268, 92, 176, 28);
+		panel_timkiem_khoanthu.add(textField_tenkhoanthu);
+		//panel_timkiem_khoanthu.add(btn_refresh);
+		
+		JButton btn_timkiemkhoanthu = new JButton("Tìm Kiếm Khoản Thu");
+		btn_timkiemkhoanthu.setBackground(new Color(255, 255, 204));
+		btn_timkiemkhoanthu.setForeground(new Color(255, 51, 51));
+		btn_timkiemkhoanthu.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_timkiemkhoanthu.setBounds(380, 143, 222, 36);
+		btn_timkiemkhoanthu.setFocusable(false);
+		btn_timkiemkhoanthu.addActionListener(this);
+		
+		JButton btn_refresh3 = new JButton("REFRESH");
+		btn_refresh3.setForeground(new Color(255, 51, 51));
+		btn_refresh3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_refresh3.setFocusable(false);
+		btn_refresh3.setBackground(new Color(255, 255, 204));
+		btn_refresh3.setBounds(698, 143, 156, 36);
+		btn_refresh3.addActionListener(this);
+		panel_timkiem_khoanthu.add(btn_timkiemkhoanthu);
+		panel_timkiem_khoanthu.add(btn_refresh3);
+		//contentPane.add(panel_timkiem_khoanthu);
+		//******************************panel tim kiem danh sach nop tien*************************************//
+		panel_timkiem_noptien = new JPanel();
+		panel_timkiem_noptien.setLayout(null);
+		panel_timkiem_noptien.setBackground(new Color(204, 255, 204));
+		panel_timkiem_noptien.setBounds(208, 543, 951, 189);
+		//contentPane.add(panel_timkiem_nhankhau);
+		
+		JLabel label_mahoNop = new JLabel("Nhập Mã Hộ Khẩu: ");
+		label_mahoNop.setForeground(new Color(0, 102, 255));
+		label_mahoNop.setFont(new Font("Arial", Font.BOLD, 20));
+		label_mahoNop.setBounds(36, 29, 222, 29);
+		panel_timkiem_noptien.add(label_mahoNop);
+		
+		textField_mahoNop = new JTextField();
+		textField_mahoNop.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_mahoNop.setBounds(268, 29, 176, 28);
+		panel_timkiem_noptien.add(textField_mahoNop);
+		
+		
+		JLabel label_namekhoanthu= new JLabel("Nhập Tên Khoản Thu: ");
+		label_namekhoanthu.setForeground(new Color(0, 102, 255));
+		label_namekhoanthu.setFont(new Font("Arial", Font.BOLD, 20));
+		label_namekhoanthu.setBounds(36, 92, 222, 29);
+		panel_timkiem_noptien.add(label_namekhoanthu);
+		
+		textField_namekhoanthu = new JTextField();
+		textField_namekhoanthu.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_namekhoanthu.setColumns(10);
+		textField_namekhoanthu.setBounds(268, 92, 176, 28);
+		panel_timkiem_noptien.add(textField_namekhoanthu);
+		
+		JLabel label_tenguoidong = new JLabel("Nhập Tên Người Đóng: ");
+		label_tenguoidong.setForeground(new Color(0, 102, 255));
+		label_tenguoidong.setFont(new Font("Arial", Font.BOLD, 20));
+		label_tenguoidong.setBounds(515, 29, 222, 29);
+		panel_timkiem_noptien.add(label_tenguoidong);
+		
+		textField_tennguoidong = new JTextField();
+		textField_tennguoidong.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField_tennguoidong.setColumns(10);
+		textField_tennguoidong.setBounds(747, 29, 176, 28);
+		panel_timkiem_noptien.add(textField_tennguoidong);
+		
+		JButton btn_timkiemnoptien = new JButton("Tìm Kiếm Nộp Tiền");
+		btn_timkiemnoptien.setBackground(new Color(255, 255, 204));
+		btn_timkiemnoptien.setForeground(new Color(255, 51, 51));
+		btn_timkiemnoptien.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_timkiemnoptien.setBounds(380, 143, 222, 36);
+		btn_timkiemnoptien.setFocusable(false);
+		btn_timkiemnoptien.addActionListener(this);
+		
+		JButton btn_refresh4 = new JButton("REFRESH");
+		btn_refresh4.setForeground(new Color(255, 51, 51));
+		btn_refresh4.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_refresh4.setFocusable(false);
+		btn_refresh4.setBackground(new Color(255, 255, 204));
+		btn_refresh4.setBounds(698, 143, 156, 36);
+		btn_refresh4.addActionListener(this);
+		panel_timkiem_noptien.add(btn_refresh4);
+		panel_timkiem_noptien.add(btn_timkiemnoptien);
+		//contentPane.add(panel_timkiem_noptien);
+		//****************************************************************************************************//
 		panel_thongtin = new JPanel();
+		
 		panel_thongtin.setLayout(null);
-		panel_thongtin.setBounds(208, 20, 951, 539);
+		panel_thongtin.setBounds(208, 10, 969, 523);
 		contentPane.add(panel_thongtin);
 		
 		//********************table danh sách nhân khẩu***********************//
 		
 		table_nhankhau = new JTable();
-		table_nhankhau.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table_nhankhau.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 18));
+		//table_nhankhau.setBackground(new Color(255,250,235));
+		//table_nhankhau.setForeground(new Color(100,50,150));
 		table_nhankhau.setModel(new DefaultTableModel(
 			new Object[][] {
 				
 			},
 			new String[] {
-				"Họ và Tên", "CMND", "Mã Hộ","Tuổi", "Địa Chỉ","Giới Tính", "SĐT", "Quan hệ với chủ hộ"
+				"ID","Họ và Tên", "CMND", "Mã Hộ","Tuổi", "Địa Chỉ","Giới Tính", "SĐT", "Quan hệ với chủ hộ"
 			}
 		));
 		
-		
+		table_nhankhau.setFont(new Font("arial", Font.PLAIN, 15));
+		table_nhankhau.setRowHeight(25);
 		scrollPane_dsNhankhau = new JScrollPane(table_nhankhau);
-		scrollPane_dsNhankhau.setBounds(0, 31, 951, 508);
+		scrollPane_dsNhankhau.setBounds(0, 31, 969, 492);
 		
 		//*******************table danh sách hộ khẩu**********************//
 		
 		table_hokhau = new JTable();
-		table_hokhau.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table_hokhau.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 18));
+		table_hokhau.setFont(new Font("arial", Font.PLAIN, 15));
 		table_hokhau.setModel(new DefaultTableModel(
 			new Object[][] {
 				
@@ -215,14 +497,15 @@ public class screen_view extends JFrame implements ActionListener{
 			}
 		));
 		
-		
+		table_hokhau.setRowHeight(25);
 		scrollPane_dsHoKhau = new JScrollPane(table_hokhau);
 		scrollPane_dsHoKhau.setBounds(0, 31, 951, 508);
 		
 		//*****************table danh sách đóng phí*************************//
 		
 		table_dongphi = new JTable();
-		table_dongphi.getTableHeader().setFont(new Font("Tahoma",Font.PLAIN,14));
+		table_dongphi.getTableHeader().setFont(new Font("Tahoma",Font.PLAIN,18));
+		table_dongphi.setFont(new Font("arial", Font.PLAIN, 15));
 		table_dongphi.setModel(new DefaultTableModel(
 				new Object[][] {
 					
@@ -230,14 +513,16 @@ public class screen_view extends JFrame implements ActionListener{
 				new String[] {
 					"Mã hộ nộp","Tên người nôp", "Tên khoản thu","Số Tiền", "Ngày thu"
 				}
-			));		
+			));	
+		table_dongphi.setRowHeight(25);
 		scrollPane_dsDongphi = new JScrollPane(table_dongphi);
 		scrollPane_dsDongphi.setBounds(0, 31, 951, 508);
 		
 		//*****************table danh sách khoản thu***********************//
 		
 		table_khoanthu = new JTable();
-		table_khoanthu.getTableHeader().setFont(new Font("Tahoma",Font.PLAIN,14));
+		table_khoanthu.getTableHeader().setFont(new Font("Tahoma",Font.PLAIN,18));
+		table_khoanthu.setFont(new Font("arial", Font.PLAIN, 15));
 		table_khoanthu.setModel(new DefaultTableModel(
 				new Object[][] {
 					
@@ -246,6 +531,7 @@ public class screen_view extends JFrame implements ActionListener{
 						"Mã khoản thu","Loại khoản thu","Tên khoản thu", "số tiên"
 				}
 			));
+		table_khoanthu.setRowHeight(25);
 		scrollPane_dsKhoanThu = new JScrollPane(table_khoanthu);
 		scrollPane_dsKhoanThu.setBounds(0, 31, 951, 508);
 		
@@ -304,52 +590,209 @@ public class screen_view extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String src = e.getActionCommand();
-		System.out.print(src);
 			if(src.equals("Danh Sách Nhân Khẩu")) {
-				panel_thongtin.add(scrollPane_dsNhankhau);
+				if(key == 2) {
+					panel_thongtin.remove(scrollPane_dsHoKhau);
+					contentPane.remove(panel_timkiem_hokhau);
+				}
+				else if(key == 3) {
+					panel_thongtin.remove(scrollPane_dsDongphi);
+					contentPane.remove(panel_timkiem_noptien);
+				}
+				else if(key == 4) {
+					panel_thongtin.remove(scrollPane_dsKhoanThu);
+					contentPane.remove(panel_timkiem_khoanthu);
+				}
+				panel_thongtin.add(scrollPane_dsNhankhau);				
+				contentPane.add(panel_timkiem_nhankhau);
+				contentPane.repaint();
+				contentPane.revalidate();
+				key =1;
 			}
 			else if(src.equals("Danh Sách Hộ Khẩu")) {
-				panel_thongtin.add(scrollPane_dsHoKhau);
 				
+				if(key ==1) {
+					System.out.print("remove tim kiem nhan khau\n");
+					panel_thongtin.remove(scrollPane_dsNhankhau);	
+					contentPane.remove(panel_timkiem_nhankhau);
+				}
+				else if(key == 3) {
+					panel_thongtin.remove(scrollPane_dsDongphi);
+					contentPane.remove(panel_timkiem_noptien);
+				}
+				else if(key == 4) {
+					panel_thongtin.remove(scrollPane_dsKhoanThu);
+					contentPane.remove(panel_timkiem_khoanthu);
+				}
+				panel_thongtin.add(scrollPane_dsHoKhau);
+				System.out.print("add panel tim kiem ho khau\n");
+				contentPane.add(panel_timkiem_hokhau);
+				contentPane.repaint();
+				contentPane.revalidate();
+				key = 2;
 			}
 			else if(src.equals("Danh Sách Đóng Phí")) {
+				
+				if(key ==1) {
+					panel_thongtin.remove(scrollPane_dsNhankhau);
+					contentPane.remove(panel_timkiem_nhankhau);
+				}
+				if(key == 2) {
+					panel_thongtin.remove(scrollPane_dsHoKhau);
+					contentPane.remove(panel_timkiem_hokhau);
+				}
+				else if(key == 4) {
+					panel_thongtin.remove(scrollPane_dsKhoanThu);
+					contentPane.remove(panel_timkiem_khoanthu);
+				}
 				panel_thongtin.add(scrollPane_dsDongphi);
+				contentPane.add(panel_timkiem_noptien);
+				contentPane.repaint();
+				contentPane.revalidate();
+				key = 3;
 			}
 			else if(src.equals("Danh Sách Khoản Thu")) {
+				
+				if(key ==1) {
+					panel_thongtin.remove(scrollPane_dsNhankhau);
+					contentPane.remove(panel_timkiem_nhankhau);
+					
+				}
+				else if(key == 2) {
+					panel_thongtin.remove(scrollPane_dsHoKhau);
+					contentPane.remove(panel_timkiem_hokhau);
+				}
+				else if(key == 3) {
+					panel_thongtin.remove(scrollPane_dsDongphi);
+					contentPane.remove(panel_timkiem_noptien);
+				}
 				panel_thongtin.add(scrollPane_dsKhoanThu);
+				contentPane.add(panel_timkiem_khoanthu);
+				contentPane.repaint();
+				contentPane.revalidate();
+				key = 4;
 			}
 			else if(src.equals("Thêm Nhân Khẩu")) {
 				new themnhankhau_view();
 			}
 			else if(src.equals("Sửa Nhân Khẩu")) {
 				
+				new suanhankhau_view();
 			}
 			else if(src.equals("Thêm Hộ Khẩu")) {
+				System.out.print("them ho khau");
 				new themhokhau_view();
 			}
 			else if(src.equals("Sửa Hộ Khẩu")) {
-				
+				new suahokhau_view();
 			}
 			else if(src.equals("Thêm Khoản Thu")) {
 				new themkhoanthu_view();
 			}
 			else if(src.equals("Sửa Khoản Thu")) {
-				
+				new suakhoanthu();
 			}
 			else if(src.equals("Thêm Nộp Tiền")) {
 				
 				new themnoptien_view();
 			}
-			else if(src.equals("Xóa Nộp Tiền")) {
-				
+			else if(src.equals("Sửa tt Nộp Tiền")) {
+				new suaNopTien();
 			}
+			else if(src.equals("Tìm Kiếm Nhân Khẩu")) {
+				if(!textField_idnhankhau.getText().equals("")){
+					String idNhankhau = textField_idnhankhau.getText();
+					textField_idnhankhau.setText("");
+					TimkiemNhankhau_withId.timkiem_nhankhau(idNhankhau);
+				}
+				else if(!textField_hotennhankhau.getText().equals("")) {
+					String hoten = textField_hotennhankhau.getText();
+					
+					textField_hotennhankhau.setText("");
+					timkiemnhankhau_withHoten.timkiem_nhankhau(hoten);					
+				}
+				else if(!textField_maho.getText().equals("")){
+					String maho = textField_maho.getText();
+					textField_maho.setText("");
+					timkiemnhankhau_withmaho.timkiemnhankhau(maho);
+				}
+				else if(!textField_cmnd.getText().equals("")) {
+					String cmnd = textField_cmnd.getText();
+					textField_cmnd.setText("");
+					timkiemnhankhau_withCmnd.timkiemnhankhau(cmnd);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Vui lòng nhập thông tin");
+				}
+			}
+			else if(src.equals("Tìm Kiếm Hộ Khẩu")) {
+				if(!textField_mahokhau.getText().equals("")) {
+					String mahokhau = textField_mahokhau.getText();
+					textField_mahokhau.setText("");
+					timkiemhokhau_withMaho.timkiemhokhau(mahokhau);
+				}
+				else if(!textField_hotenchuho.getText().equals("")) {
+					String tenchuho = textField_hotenchuho.getText();
+					textField_hotenchuho.setText("");
+					timkiemhokhau_withChuho.timkiemhokhau(tenchuho);
+				}
+				else if(!textField_diachi.getText().equals("")) {
+					String diachi = textField_diachi.getText();
+					textField_diachi.setText("");
+					timkiemhokhau_withDiachi.timkiemhokhau(diachi);
+				}
+			}
+			else if(src.equals("Tìm Kiếm Khoản Thu")) {
+				if(!textField_makhoanthu.getText().equals("")) {
+					String makhoanthu = textField_makhoanthu.getText();
+					textField_makhoanthu.setText("");
+					timkiemkhoanthu_withMakhoanthu.timkiemkhoanthu(makhoanthu);
+				}
+				else if(!textField_tenkhoanthu.getText().equals("")) {
+					String tenkhoanthu = textField_tenkhoanthu.getText();
+					textField_tenkhoanthu.setText("");
+					timkiemkhoanthu_withTenkhoanthu.timkiemkhoanthu(tenkhoanthu);
+				}
+			}
+			else if(src.equals("Tìm Kiếm Nộp Tiền")) {
+				if(!textField_mahoNop.getText().equals("")) {
+					String mahonop = textField_mahoNop.getText();
+					textField_mahoNop.setText("");
+					timkiemdongphi.timkiem_withMahoNop(mahonop);
+				}
+				else if(!textField_namekhoanthu.getText().equals("")) {
+					String tenkhoanthu = textField_namekhoanthu.getText();
+					textField_namekhoanthu.setText("");
+					timkiemdongphi.timkiem_withTenkhoanthu(tenkhoanthu);
+				}
+				else if(!textField_tennguoidong.getText().equals("")) {
+					String tenNguoidong = textField_tennguoidong.getText();
+					textField_tennguoidong.setText("");
+					timkiemdongphi.timkiem_withNguoinop(tenNguoidong);
+				}
+			}
+			else if(src.equals("REFRESH")) {
+				DefaultTableModel model_table_nhankhau = (DefaultTableModel) table_nhankhau.getModel();
+				model_table_nhankhau.setRowCount(0);
+				themnhankhau_db.nhankhau_start();
+				DefaultTableModel model_table_hokhau = (DefaultTableModel) table_hokhau.getModel();
+				model_table_hokhau.setRowCount(0);
+				themhokhau_db.hokhau_start();
+				DefaultTableModel model_table_khoanthu = (DefaultTableModel) table_khoanthu.getModel();
+				model_table_khoanthu.setRowCount(0);
+				themkhoanthu_db.khoanthu_start();
+				DefaultTableModel model_table_dongphi = (DefaultTableModel) table_dongphi.getModel();
+				model_table_dongphi.setRowCount(0);
+				themnoptien_db.noptien_start();;
+			}
+			
 	}
 		
 		public static void themNhanKhau(nhankhau_model nhankhau) {
 			DefaultTableModel model_table = (DefaultTableModel) table_nhankhau.getModel();
 			
 			//model_table.addRow(new Object[] {ts.mssv + "",ts.name+"",ts.queQuan.tentinh,ts.ngaysinh,ts.gioitinh,ts.diemmon1 + "",ts.diemmon2 + "",ts.diemmon3+ ""});
-			model_table.addRow(new Object[] {nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
+			model_table.addRow(new Object[] {nhankhau.id_nhankhau,nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
 		}
 		public static void themHoKhau(hokhau_model hokhau) {
 			DefaultTableModel model_table = (DefaultTableModel) table_hokhau.getModel();
@@ -362,5 +805,85 @@ public class screen_view extends JFrame implements ActionListener{
 		public static void themNopTien(noptien_model noptien) {
 			DefaultTableModel model_table = (DefaultTableModel) table_dongphi.getModel();
 			model_table.addRow(new Object[] {noptien.MaHoKhau,noptien.TenNguoiNop,noptien.TenKhoanThu,noptien.SoTien+"",noptien.NgayThu});
+		}
+		public static void update_table_nhankhau(String idNhankhau, nhankhau_model nhankhau) {
+			DefaultTableModel model_table = (DefaultTableModel) table_nhankhau.getModel();
+			for(int i=0;i<model_table.getRowCount();i++) {
+				if(model_table.getValueAt(i, 0)==idNhankhau) {
+					model_table.removeRow(i);
+					model_table.addRow(new Object[] {nhankhau.id_nhankhau,nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
+				}
+			}
+		}
+		public static void update_table_khoanthu(khoanthu_model khoanthu, String idkhoanthu) {
+			DefaultTableModel model_table = (DefaultTableModel) table_khoanthu.getModel();
+			for(int i=0;i<model_table.getRowCount();i++) {
+				
+				if(model_table.getValueAt(i, 0)==idkhoanthu) {
+					model_table.removeRow(i);
+					model_table.addRow(new Object[] {khoanthu.makhoanthu,khoanthu.loaikhoanthu,khoanthu.tenkhoanthu,khoanthu.Sotien+""});
+				}
+			}
+		}
+		public static void delete_row_khoanthu(String idkhoanthu) {
+			DefaultTableModel model_table = (DefaultTableModel)table_khoanthu.getModel();
+			for(int i=0;i<model_table.getRowCount();i++) {
+				if(model_table.getValueAt(i, 0)==idkhoanthu) {
+					model_table.removeRow(i);
+					break;
+				}
+			}
+		}
+		public static void update_table_hokhau(hokhau_model hokhau, String idHokhau) {
+			DefaultTableModel model_table = (DefaultTableModel) table_hokhau.getModel();
+			for(int i=0;i<model_table.getRowCount();i++) {
+				if(model_table.getValueAt(i, 0)==idHokhau) {
+					model_table.removeRow(i);
+					model_table.addRow(new Object[] {hokhau.maho,hokhau.chuho,hokhau.Sothanhvien+"",hokhau.diachi});
+					
+				}
+			}
+		}
+		public static void delete_table_nhankhau() {
+			DefaultTableModel model_table = (DefaultTableModel) table_nhankhau.getModel();
+			model_table.setRowCount(0);
+		}
+		public static void showRes_timkiemnhankhau(nhankhau_model nhankhau) {
+			DefaultTableModel model_table = (DefaultTableModel) table_nhankhau.getModel();
+			//model_table.setRowCount(0);
+			model_table.addRow(new Object[] {nhankhau.id_nhankhau,nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
+			table_nhankhau.repaint();
+			table_nhankhau.revalidate();
+			
+		}
+		public static void delete_table_hokhau() {
+			DefaultTableModel model_table = (DefaultTableModel) table_hokhau.getModel();
+			model_table.setRowCount(0);
+		}
+		public static void showRes_timkiemhokhau(hokhau_model hokhau) {
+			DefaultTableModel model_table = (DefaultTableModel) table_hokhau.getModel();
+			model_table.addRow(new Object[] {hokhau.maho,hokhau.chuho,hokhau.Sothanhvien+"",hokhau.diachi});
+			table_hokhau.repaint();
+			table_hokhau.revalidate();
+		}
+		public static void delete_table_khoanthu() {
+			DefaultTableModel model_table = (DefaultTableModel) table_khoanthu.getModel();
+			model_table.setRowCount(0);
+		}
+		public static void showRes_timkiemkhoanthu(khoanthu_model khoanthu) {
+			DefaultTableModel model_table = (DefaultTableModel) table_khoanthu.getModel();
+			model_table.addRow(new Object[] {khoanthu.makhoanthu,khoanthu.loaikhoanthu,khoanthu.tenkhoanthu,khoanthu.Sotien+""});
+			table_khoanthu.repaint();
+			table_khoanthu.revalidate();
+		}
+		public static void delete_table_dongphi() {
+			DefaultTableModel model_table = (DefaultTableModel) table_dongphi.getModel();
+			model_table.setRowCount(0);
+		}
+		public static void showRes_timkiemNoptien(noptien_model noptien) {
+			DefaultTableModel model_table = (DefaultTableModel) table_dongphi.getModel();
+			model_table.addRow(new Object[] {noptien.MaHoKhau,noptien.TenNguoiNop,noptien.TenKhoanThu,noptien.SoTien+"",noptien.NgayThu});
+			table_dongphi.repaint();
+			table_dongphi.revalidate();
 		}
 }

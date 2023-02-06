@@ -45,7 +45,6 @@ public class themhokhau_db {
 	public static void hokhau_start() {
 		try {
 			quanlyAll = new quanly_model();
-			System.out.print("you in them ho khau start");
 			hokhau = new hokhau_model();
 			java.sql.Statement st = connec.createStatement();
 			String sql = "select * from hokhau";
@@ -64,5 +63,18 @@ public class themhokhau_db {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static void update_hokhau(hokhau_model hokhau, String idHokhau) {
+		try {
+			java.sql.Statement st = connec.createStatement();
+			String sql = "update hokhau "
+					+ "set chuho = "+"'"+hokhau.chuho+"'"+", diachi = "+"'"+ hokhau.diachi +"'"+", maho = "+"'"+hokhau.maho+"'"+", sothanhvien = "+hokhau.Sothanhvien
+					+" where maho = "+"'"+idHokhau+"'";
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
