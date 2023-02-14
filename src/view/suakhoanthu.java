@@ -173,13 +173,26 @@ public class suakhoanthu extends JFrame implements ActionListener{
 			khoanthu_.Sotien =Integer.parseInt(textField_sotien.getText());
 			khoanthu_.tenkhoanthu = textField_tenkhoanthu.getText();
 			themkhoanthu_db.update_khoanthu(khoanthu_, khoanthu_.makhoanthu);
-			screen_view.update_table_khoanthu(khoanthu_, khoanthu_.makhoanthu);
+			//screen_view.update_table_khoanthu(khoanthu_, khoanthu_.makhoanthu);
+			screen_view.delete_table_khoanthu();
+			themkhoanthu_db.khoanthu_start();
 			JOptionPane.showMessageDialog(null, "Update Success!");
+			this.setNull();
 		}
 		if(src == "DELETE") {
-			screen_view.delete_row_khoanthu(comboBox_makhoanthu.getSelectedItem().toString());
+			//screen_view.delete_row_khoanthu(comboBox_makhoanthu.getSelectedItem().toString());
 			themkhoanthu_db.delete_row_khoanthu(comboBox_makhoanthu.getSelectedItem().toString());
+			screen_view.delete_table_khoanthu();
+			themkhoanthu_db.khoanthu_start();
 			JOptionPane.showMessageDialog(null, "Delete Success!");
+			this.setNull();
 		}
+	}
+	public void setNull() {
+		textField_sotien.setText("");
+		textField_tenkhoanthu.setText("");
+		comboBox_loaikhoanthu.setSelectedIndex(-1);
+		comboBox_makhoanthu.setSelectedIndex(-1);
+		
 	}
 }

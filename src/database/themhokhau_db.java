@@ -15,7 +15,7 @@ public class themhokhau_db {
 	public static  Connection connec= jdbc.getconConnection();
 	public static hokhau_model hokhau;
 	public static quanly_model quanlyAll;
-	public static void themhokhau(String chuho, String diachi, String maho,int sothanhvien) {
+	public static int themhokhau(String chuho, String diachi, String maho,int sothanhvien) {
 		
 		try {
 			
@@ -29,17 +29,21 @@ public class themhokhau_db {
 			String sql = "insert into hokhau (chuho, diachi, maho, sothanhvien)"
 	                + "values('" + chuho + "','" + diachi + "','" + maho + "','" + sothanhvien + "')";
 			//System.out.print("you pass database");
-			int check = st.executeUpdate(sql);
-			if(check>0) {
-				System.out.print("success in database");
+			try {
+				int check = st.executeUpdate(sql);
+				return 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				return 0;
 			}
-			else {
-				System.out.print("fail in database");
-			}
+			
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 1;
 		
 	}
 	public static void hokhau_start() {

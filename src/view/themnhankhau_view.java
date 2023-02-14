@@ -246,11 +246,17 @@ public class themnhankhau_view extends JFrame implements ActionListener{
 			
 			//model_table.addRow(new Object[] {ts.mssv + "",ts.name+"",ts.queQuan.tentinh,ts.ngaysinh,ts.gioitinh,ts.diemmon1 + "",ts.diemmon2 + "",ts.diemmon3+ ""});
 			//model_table.addRow(new Object[] {nhankhau.name_nhankhau,nhankhau.cmnd+"",nhankhau.hokhau.maho, nhankhau.age_nhankhau + "",nhankhau.diachi,nhankhau.gioitinh,nhankhau.sdt,nhankhau.quanheChuho});
-			screen_view.themNhanKhau(nhankhau);
-			quanly_model.dsIdNhankhau.add(nhankhau.id_nhankhau);
-			themnhankhau_db.themnhankhau(nhankhau.id_nhankhau, nhankhau.cmnd, nhankhau.name_nhankhau, nhankhau.age_nhankhau, nhankhau.gioitinh, nhankhau.sdt, nhankhau.quanheChuho, nhankhau.diachi, nhankhau.dantoc,nhankhau.hokhau.maho);
-			JOptionPane.showInternalMessageDialog(null, "Insert Success");
-			this.setNull();
+			int check = themnhankhau_db.themnhankhau(nhankhau.id_nhankhau, nhankhau.cmnd, nhankhau.name_nhankhau, nhankhau.age_nhankhau, nhankhau.gioitinh, nhankhau.sdt, nhankhau.quanheChuho, nhankhau.diachi, nhankhau.dantoc,nhankhau.hokhau.maho);
+			if(check ==1 ) {
+				screen_view.themNhanKhau(nhankhau);
+				quanly_model.dsIdNhankhau.add(nhankhau.id_nhankhau);
+				JOptionPane.showInternalMessageDialog(null, "Insert Success");
+				this.setNull();
+			}
+			else if(check == 0) {
+				JOptionPane.showMessageDialog(null, "Id nhân khẩu đã tồn tại");
+			}
+			
 		}
 	}
 	public void setNull() {

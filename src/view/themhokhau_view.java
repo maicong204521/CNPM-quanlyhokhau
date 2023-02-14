@@ -112,10 +112,17 @@ public class themhokhau_view extends JFrame implements ActionListener{
 				hokhau.diachi = textField_diachi.getText();
 				hokhau.maho = textField_maho.getText();
 				hokhau.Sothanhvien =Integer.parseInt(textField_sothanhvien.getText()) ;
-				screen_view.themHoKhau(hokhau);
-				quanly_model.dsMaHo.add(hokhau.maho);
-				themhokhau_db.themhokhau(textField_tenchuho.getText(),textField_diachi.getText() ,textField_maho.getText() , Integer.parseInt(textField_sothanhvien.getText()));
-				JOptionPane.showInternalMessageDialog(null, "Insert success!");
+				
+				int check = themhokhau_db.themhokhau(textField_tenchuho.getText(),textField_diachi.getText() ,textField_maho.getText() , Integer.parseInt(textField_sothanhvien.getText()));
+				if(check == 1) {
+					screen_view.themHoKhau(hokhau);
+					quanly_model.dsMaHo.add(hokhau.maho);
+					JOptionPane.showInternalMessageDialog(null, "Insert success!");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Mã hộ đã tồn tại!");
+				}
+				
 			} catch (Exception e2) {
 				// TODO: handle exception
 				JOptionPane.showInternalMessageDialog(null, "Bạn nhập sai, vui lòng nhập lại");

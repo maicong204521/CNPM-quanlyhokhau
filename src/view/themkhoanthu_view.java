@@ -129,11 +129,18 @@ public class themkhoanthu_view extends JFrame implements ActionListener{
 			khoanthu.tenkhoanthu = textField_tenkhoanthu.getText();
 			khoanthu.makhoanthu = textField_makhoanthu.getText();
 			khoanthu.Sotien =Integer.parseInt(textField_sotiendaunguoi.getText()) ;
-			themkhoanthu_db.themkhoanthu(khoanthu.tenkhoanthu,khoanthu.makhoanthu, khoanthu.loaikhoanthu, khoanthu.Sotien);
-			quanly_model.dsMakhoanthu.add(khoanthu.makhoanthu);
-			screen_view.themKhoanThu(khoanthu);
-			JOptionPane.showInternalMessageDialog(null, "insert success!");
-			this.setnull();
+			
+			int check = themkhoanthu_db.themkhoanthu(khoanthu.tenkhoanthu,khoanthu.makhoanthu, khoanthu.loaikhoanthu, khoanthu.Sotien);
+			if(check==1) {
+				quanly_model.dsMakhoanthu.add(khoanthu.makhoanthu);
+				screen_view.themKhoanThu(khoanthu);
+				JOptionPane.showInternalMessageDialog(null, "insert success!");
+				this.setnull();
+			}
+			else if(check == 0) {
+				JOptionPane.showMessageDialog(null, "Mã khoản thu đã tồn tại!");
+			}
+			
 		}
 		else if(src == "RESET") {
 			this.setnull();

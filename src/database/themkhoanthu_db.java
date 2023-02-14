@@ -14,24 +14,25 @@ import view.screen_view;
 public class themkhoanthu_db {
 	public static Connection connec = jdbc.getconConnection();
 	//public static quanly_model quanlyAll;
-	public static void themkhoanthu(String makhoanthu, String tenkhoanthu,String loaikhoanthu,int Sotien) {
+	public static int themkhoanthu(String makhoanthu, String tenkhoanthu,String loaikhoanthu,int Sotien) {
 		try {
 			java.sql.Statement st = connec.createStatement();
 			String sql = "insert into khoanthu (tenkhoanthu, makhoanthu, loaikhoanthu, Sotien)"
 	                + "values('" + makhoanthu + "','" + tenkhoanthu + "','" + loaikhoanthu + "','" + Sotien + "')";
 			//System.out.print("you pass database");
-			int check = st.executeUpdate(sql);
-			if(check>0) {
-				System.out.print("success in database");
-			}
-			else {
-				System.out.print("fail in database");
+			
+			try {
+				int check = st.executeUpdate(sql);
+				return 1;
+			} catch (Exception e) {
+				// TODO: handle exception
+				return 0;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return 1;
 	}
 	public static void khoanthu_start() {
 		try {

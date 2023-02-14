@@ -269,7 +269,9 @@ public class suanhankhau_view extends JFrame implements ActionListener{
 			}
 			try {
 				themnhankhau_db.update_nhankhau(nhankhau, nhankhau.id_nhankhau);
-				screen_view.update_table_nhankhau(nhankhau.id_nhankhau,nhankhau);
+				screen_view.delete_table_nhankhau();
+				themnhankhau_db.nhankhau_start();
+				//screen_view.update_table_nhankhau(nhankhau.id_nhankhau,nhankhau);
 				this.setnull();
 				JOptionPane.showInternalMessageDialog(null, "UPDATE SUCCESS");
 				

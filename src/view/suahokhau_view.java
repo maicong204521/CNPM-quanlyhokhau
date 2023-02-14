@@ -162,8 +162,18 @@ public class suahokhau_view extends JFrame implements ActionListener{
 				hokhau.diachi = textField_diachi.getText();
 				hokhau.Sothanhvien =Integer.parseInt(textField_sothanhvien.getText());
 				themhokhau_db.update_hokhau(hokhau, hokhau.maho);
-				screen_view.update_table_hokhau(hokhau, hokhau.maho);
+				//screen_view.update_table_hokhau(hokhau, hokhau.maho);
+				screen_view.delete_table_hokhau();
+				themhokhau_db.hokhau_start();
 				JOptionPane.showMessageDialog(null, "UPDATE SUCCESS!");
+				this.setNull();
 		}
+	}
+	public void setNull() {
+		comboBox_chuho.setSelectedIndex(-1);
+		comboBox_maho.setSelectedIndex(-1);
+		textField_diachi.setText("");
+		textField_sothanhvien.setText("");
+		
 	}
 }

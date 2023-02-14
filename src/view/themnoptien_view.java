@@ -140,12 +140,23 @@ public class themnoptien_view extends JFrame implements ActionListener{
 			noptien.NgayThu = textField_ngayThu.getText();
 			noptien.TenKhoanThu = textField_tenKhoanThu.getText();
 			noptien.TenNguoiNop = textField_tenNguoiNop.getText();
-			screen_view.themNopTien(noptien);
+			
 			for(String i : quanly_model.dsMaHo) {
 				comboBox_mahokhau.addItem(i);
 				}
-			themnoptien_db.themnoptien(noptien.TenNguoiNop, noptien.MaHoKhau, noptien.TenKhoanThu, noptien.NgayThu, noptien.SoTien);
-			JOptionPane.showMessageDialog(null, "Insert success!");
+			int check = themnoptien_db.themnoptien(noptien.TenNguoiNop, noptien.MaHoKhau, noptien.TenKhoanThu, noptien.NgayThu, noptien.SoTien);
+			if(check==1) {
+				screen_view.themNopTien(noptien);
+				JOptionPane.showMessageDialog(null, "Insert success!");
+				this.setnull();
+				for(String i : quanly_model.dsMaHo) {
+					comboBox_mahokhau.addItem(i);
+					}
+			}
+			else if(check ==0) {
+				JOptionPane.showMessageDialog(null,	"Trùng lặp thông tin!");
+			}
+			
 		}
 	}
 	public void setnull() {
